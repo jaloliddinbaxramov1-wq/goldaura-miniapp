@@ -52,6 +52,7 @@
     try { tg.expand(); } catch(e) {}
   </script>
 </body><script>
+  <div id="finance" style="margin-top:20px;color:gold"></div>
   const v = Date.now();
   if (!location.search.includes('v=')) {
     location.replace(location.pathname + '?v=' + v);
@@ -61,7 +62,7 @@
 const tg = window.Telegram.WebApp;
 tg.ready();
 
-fetch("https://script.google.com/macros/s/AKfycbxHLq79NGo0TChMW-oc3lZM8cokBFTZJTN8x3HUCswAPx4HxaxU_b7GuCtBCbEzfJVu8A/exec", {
+fetch("https://script.google.com/macros/s/AKfycbwQLUB1BP7Opz1MasEpb88P8YIu7-_HQ2-OACg6bsCl5TnGOaMoaeulFdY7UzkMeI9a/exec", {
   method: "POST",
   body: JSON.stringify({
     user_id: tg.initDataUnsafe.user.id,
@@ -69,14 +70,15 @@ fetch("https://script.google.com/macros/s/AKfycbxHLq79NGo0TChMW-oc3lZM8cokBFTZJT
     name: tg.initDataUnsafe.user.first_name || ""
   })
 })
+  fetch("https://script.google.com/macros/s/AKfycbxLJ4njJovLzKHfpCL4aEZjLHK0AMcVS58wZnnvCvwNtv3wV9vXe7qdFs1Xr65ByS1A/exec")
 .then(res => res.json())
 .then(data => {
-  document.body.innerHTML += `
-    <div style="margin-top:20px;color:gold">
-      💰 Баланс: ${data.balance} <br>
-      🎁 Бонус: ${data.bonus} <br>
-      ❗ Долг: ${data.debt}
-    </div>
+  document.getElementById("finance").innerHTML = `
+    🍯 Баланс: ${data.balance} <br>
+    🎁 Бонус: ${data.bonus} <br>
+    ❗ Долг: ${data.debt}
+  `;
+});
   `;
 });
 </script>
