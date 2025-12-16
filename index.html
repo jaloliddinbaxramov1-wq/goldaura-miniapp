@@ -51,5 +51,11 @@
     // (опционально) развернуть на весь экран
     try { tg.expand(); } catch(e) {}
   </script>
-</body>
+</body><script>
+  const v = Date.now();
+  if (!location.search.includes('v=')) {
+    location.replace(location.pathname + '?v=' + v);
+  }
+</script>
+
 </html>
