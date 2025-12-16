@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GoldAURA Mini App</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
   <style>
-    body {
-      background: #0b0b0b;
-      color: gold;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 50px;
-    }
-    button {
-      margin-top: 25px;
-      padding: 15px 25px;
-      font-size: 18px;
-      border-radius: 10px;
-      border: none;
-      background: gold;
-      cursor: pointer;
-    }
+    body { background:#0b0b0b; color:#d4af37; font-family: Arial, sans-serif; text-align:center; padding-top:40px; }
+    .card { max-width: 420px; margin: 0 auto; background:#111; border:1px solid #2a2a2a; border-radius:14px; padding:18px; }
+    .row { text-align:left; margin:10px 0; color:#eee; }
+    .label { color:#9f8b3a; }
+    button { margin-top:16px; padding:14px 22px; font-size:16px; border-radius:10px; border:none; background:#d4af37; cursor:pointer; }
+    .muted { color:#888; font-size:12px; margin-top:10px; }
   </style>
 </head>
-
 <body>
+  <h1 style="margin-bottom:10px;">GoldAURA</h1>
+  <div class="card">
+    <div class="row"><span class="label">user_id:</span> <span id="uid">—</span></div>
+    <div class="row"><span class="label">name:</span> <span id="name">—</span></div>
+    <div class="row"><span class="label">username:</span> <span id="uname">—</span></div>
+    <div class="row"><span class="label">language:</span> <span id="lang">—</span></div>
+    <div class="row"><span class="label">platform:</span> <span id="platform">—</span></div>
 
-<h1>GoldAURA</h1>
-<p>Mini App успешно запущен ✅</p>
+    <button onclick="Telegram.WebApp.close()">Закрыть</button>
+    <div class="muted">Если поля пустые — открой мини-апп именно через Telegram (не просто в браузере).</div>
+  </div>
 
-<button onclick="Telegram.WebApp.close()">Закрыть</button>
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.ready();
 
-<script>
-  Telegram.WebApp.ready();
-</script>
+    const u = tg.initDataUnsafe?.user;
 
+    document.getElementById("platform").textContent = tg.platform || "—";
+
+    if (!u) {
+      document.getElementById("uid").textContent = "нет данных (не из Telegram)";
+      document.getElementById("name").textContent = "—";
+      document.getElementById("uname").textContent = "—";
+      document.getElementById("lang").textContent = "—";
+    } else {
+      document.getElementById("uid").textContent = u.id ?? "—";
+      document.getElementById("name").textContent =
+        [u.first_name, u.last_name].filter(Boolean).join(" ") || "—";
+      document.getElementById("uname").textContent = u.username ? "@"+u.username : "—";
+      document.getElementById("lang").textContent = u.language_code || "—";
+    }
+
+    // (опционально) развернуть на весь экран
+    try { tg.expand(); } catch(e) {}
+  </script>
 </body>
 </html>
-<!-- deploy -->
