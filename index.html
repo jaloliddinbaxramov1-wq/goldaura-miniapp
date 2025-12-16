@@ -61,7 +61,7 @@
 const tg = window.Telegram.WebApp;
 tg.ready();
 
-fetch("ТВОЙ_APPS_SCRIPT_URL", {
+fetch("https://script.google.com/macros/s/AKfycbxHLq79NGo0TChMW-oc3lZM8cokBFTZJTN8x3HUCswAPx4HxaxU_b7GuCtBCbEzfJVu8A/exec", {
   method: "POST",
   body: JSON.stringify({
     user_id: tg.initDataUnsafe.user.id,
